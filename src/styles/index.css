@@ -1,0 +1,283 @@
+@import "tailwindcss";
+
+:root {
+  --background: #08090d;
+  --surface: #111318;
+  --border: rgba(255, 255, 255, 0.09);
+  --text-primary: #f5f5f5;
+  --text-muted: #858995;
+  --accent: #8b5cf6;
+
+  color-scheme: dark;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+:root[data-theme="light"] {
+  --background: #f6f6f3;
+  --surface: #ffffff;
+  --border: rgba(15, 15, 18, 0.1);
+  --text-primary: #111216;
+  --text-muted: #70727a;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--background);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+main[data-atmosphere="clear"] {
+  --atmosphere-opacity: 0.035;
+}
+
+main[data-atmosphere="cloudy"] {
+  --atmosphere-opacity: 0.02;
+}
+
+main[data-atmosphere="rain"] {
+  --atmosphere-opacity: 0.025;
+}
+
+main[data-atmosphere="storm"] {
+  --atmosphere-opacity: 0.04;
+}
+
+main[data-atmosphere="fog"] {
+  --atmosphere-opacity: 0.018;
+}
+
+main[data-atmosphere="snow"] {
+  --atmosphere-opacity: 0.025;
+}
+
+main[data-atmosphere="night"] {
+  --atmosphere-opacity: 0.045;
+}
+
+main {
+  position: relative;
+  isolation: isolate;
+}
+
+main::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--atmosphere-opacity, 0);
+  background:
+    radial-gradient(
+      circle at 80% 10%,
+      var(--accent),
+      transparent 42%
+    );
+  transition: opacity 800ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main::before {
+    transition: none;
+  }
+}
+
+@keyframes loading-line {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+@keyframes weather-number {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-\[loading-line_1\.4s_ease-in-out_infinite\],
+  .animate-\[weather-number_450ms_ease-out\] {
+    animation: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+}
+
+body {
+  letter-spacing: -0.005em;
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
+
+@media (min-width: 1024px) {
+  body {
+    letter-spacing: -0.007em;
+  }
+}
+
+/* Aevora atmosphere */
+main {
+  --atmosphere-opacity: 0;
+  --atmosphere-position: 80% 8%;
+}
+
+main[data-atmosphere="clear"] {
+  --atmosphere-opacity: 0.025;
+  --atmosphere-position: 82% 5%;
+}
+
+main[data-atmosphere="cloudy"] {
+  --atmosphere-opacity: 0.012;
+  --atmosphere-position: 70% 18%;
+}
+
+main[data-atmosphere="rain"] {
+  --atmosphere-opacity: 0.018;
+  --atmosphere-position: 55% 25%;
+}
+
+main[data-atmosphere="storm"] {
+  --atmosphere-opacity: 0.03;
+  --atmosphere-position: 50% 15%;
+}
+
+main[data-atmosphere="fog"] {
+  --atmosphere-opacity: 0.01;
+  --atmosphere-position: 65% 35%;
+}
+
+main[data-atmosphere="snow"] {
+  --atmosphere-opacity: 0.018;
+  --atmosphere-position: 35% 20%;
+}
+
+main[data-atmosphere="night"] {
+  --atmosphere-opacity: 0.035;
+  --atmosphere-position: 78% 4%;
+}
+
+main::before {
+  background: radial-gradient(
+    circle at var(--atmosphere-position),
+    var(--accent) 0,
+    transparent 38%
+  );
+  opacity: var(--atmosphere-opacity);
+  transition:
+    opacity 1200ms ease,
+    background-position 1600ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main::before {
+    transition: none;
+  }
+}
